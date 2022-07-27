@@ -137,7 +137,9 @@ class DbSync:
             self.connection_config['port']
         )
 
-        return psycopg2.connect(conn_string)
+        conn = psycopg2.connect(conn_string)
+        conn.set_client_encoding('UTF8')
+        return conn
 
     def query(self, query, params=None):
         with self.open_connection() as connection:
